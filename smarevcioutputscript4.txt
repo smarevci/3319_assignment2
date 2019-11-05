@@ -1,0 +1,116 @@
+--------------
+CREATE VIEW pTreatedByHead AS SELECT patient.fnamePatient AS 'Patient Firstname', patient.lnamePatient AS 'Patient Lastname', doctor.lnameDoc AS 'Doctor Lastname', hospital.Name AS 'Hospital Name' 
+	FROM patient, doctor, treats, hospital 
+	WHERE doctor.licenseNumber = treats.LicenseNum && doctor.licenseNumber = hospital.currHead && patient.ohipNumber = treats.ohipNum && 
+	hospital.currHeadDate > '1995-12-31'
+--------------
+
+Query OK, 0 rows affected (0.02 sec)
+
+--------------
+SELECT * FROM pTreatedByHead
+--------------
+
++-------------------+------------------+-----------------+---------------+
+| Patient Firstname | Patient Lastname | Doctor Lastname | Hospital Name |
++-------------------+------------------+-----------------+---------------+
+| Bill              | Gellar           | Shabado         | St. Joseph    |
+| Colleen           | Gellar           | Shabado         | St. Joseph    |
+| Scotty            | Bing             | Shabado         | St. Joseph    |
+| Jon               | Green            | Spock           | Victoria      |
+| Scotty            | Bing             | Spock           | Victoria      |
+| Suzi              | Brown            | Spock           | Victoria      |
++-------------------+------------------+-----------------+---------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++----------+------------+---------------+-------------+--------------+----------+
+| FNameDoc | LNameDoc   | LicenseNumber | LicenseDate | Specialty    | hospital |
++----------+------------+---------------+-------------+--------------+----------+
+| Joey     | Shabado    | GD56          | 1960-06-24  | Podiatrist   | BBC      |
+| Ross     | Clooney    | HT45          | 1987-06-20  | Surgeon      | DDE      |
+| Mandy    | Webster    | JK78          | 1990-08-08  | Surgeon      | BBC      |
+| Mehmet   | Oz         | OZ24          | 1982-10-17  | Surgeon      | ABC      |
+| Bernie   | Kavorikian | RD34          | 1980-09-09  | Urologist    | BBC      |
+| Colleen  | Aziz       | SE66          | 1989-08-24  | Surgeon      | ABC      |
+| Ben      | Spock      | YT67          | 1955-02-20  | Pediatrician | DDE      |
++----------+------------+---------------+-------------+--------------+----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+------------+
+| ohipNum   | licenseNum |
++-----------+------------+
+| 110112113 | GD56       |
+| 444555666 | HT45       |
+| 444555666 | JK78       |
+| 111222333 | SE66       |
+| 111222333 | YT67       |
+| 111222333 | JK78       |
+| 333444555 | GD56       |
+| 667766777 | YT67       |
+| 667766777 | JK78       |
+| 667766777 | GD56       |
+| 111222111 | YT67       |
+| 131313131 | HT45       |
++-----------+------------+
+12 rows in set (0.00 sec)
+
+--------------
+DELETE FROM doctor WHERE lnameDoc = "Clooney"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++----------+------------+---------------+-------------+--------------+----------+
+| FNameDoc | LNameDoc   | LicenseNumber | LicenseDate | Specialty    | hospital |
++----------+------------+---------------+-------------+--------------+----------+
+| Joey     | Shabado    | GD56          | 1960-06-24  | Podiatrist   | BBC      |
+| Mandy    | Webster    | JK78          | 1990-08-08  | Surgeon      | BBC      |
+| Mehmet   | Oz         | OZ24          | 1982-10-17  | Surgeon      | ABC      |
+| Bernie   | Kavorikian | RD34          | 1980-09-09  | Urologist    | BBC      |
+| Colleen  | Aziz       | SE66          | 1989-08-24  | Surgeon      | ABC      |
+| Ben      | Spock      | YT67          | 1955-02-20  | Pediatrician | DDE      |
++----------+------------+---------------+-------------+--------------+----------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM treats
+--------------
+
++-----------+------------+
+| ohipNum   | licenseNum |
++-----------+------------+
+| 110112113 | GD56       |
+| 444555666 | JK78       |
+| 111222333 | SE66       |
+| 111222333 | YT67       |
+| 111222333 | JK78       |
+| 333444555 | GD56       |
+| 667766777 | YT67       |
+| 667766777 | JK78       |
+| 667766777 | GD56       |
+| 111222111 | YT67       |
++-----------+------------+
+10 rows in set (0.00 sec)
+
+ERROR 1064 (42000) at line 23: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '// to show what cascade did to treats
+
+SELECT * FROM doctor' at line 1
+--------------
+// to show what cascade did to treats
+
+SELECT * FROM doctor
+--------------
+
+Bye

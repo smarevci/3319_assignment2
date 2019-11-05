@@ -1,0 +1,103 @@
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| hockey             |
+| mysql              |
+| performance_schema |
+| smarevciassign2db  |
+| vetoffice          |
++--------------------+
+6 rows in set (0.00 sec)
+
+--------------
+DROP DATABASE IF EXISTS smarevciassign2db
+--------------
+
+Query OK, 5 rows affected (0.22 sec)
+
+--------------
+CREATE DATABASE smarevciassign2db
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW tables
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+CREATE TABLE patient(ohipNumber INT NOT NULL, fnamePatient VARCHAR(20), lnamePatient VARCHAR(20), PRIMARY KEY(ohipNumber))
+--------------
+
+Query OK, 0 rows affected (0.07 sec)
+
+--------------
+CREATE TABLE doctor(FNameDoc VARCHAR(20), LNameDoc VARCHAR(20), LicenseNumber VARCHAR(4) NOT NULL, LicenseDate DATE, Specialty VARCHAR(30), PRIMARY KEY(LicenseNumber))
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+--------------
+CREATE TABLE hospital (HospitalCode VARCHAR(3) NOT NULL, Name VARCHAR(20), City VARCHAR(20), Province VARCHAR(2), NumOfBeds INT, PRIMARY KEY(HospitalCode))
+--------------
+
+Query OK, 0 rows affected (0.05 sec)
+
+--------------
+CREATE TABLE treats(ohipNum INT NOT NULL, licenseNum VARCHAR(4) NOT NULL, FOREIGN KEY (ohipNum) REFERENCES patient(OHIPNumber), FOREIGN KEY (licenseNum) REFERENCES doctor(LicenseNumber) ON DELETE CASCADE)
+--------------
+
+Query OK, 0 rows affected (0.29 sec)
+
+--------------
+SHOW tables
+--------------
+
++-----------------------------+
+| Tables_in_smarevciassign2db |
++-----------------------------+
+| doctor                      |
+| hospital                    |
+| patient                     |
+| treats                      |
++-----------------------------+
+4 rows in set (0.00 sec)
+
+Bye
